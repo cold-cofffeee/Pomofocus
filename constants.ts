@@ -145,8 +145,6 @@ export const translations = {
     templates: 'Templates',
     dailyGoal: 'Daily Goal',
     streak: 'Day Streak',
-    idlePrompt: 'You seem away. Continue or pause?',
-    continue: 'Continue',
     
     // Settings Screen
     timerSettings: 'Timer Settings',
@@ -213,8 +211,6 @@ export const translations = {
     templates: 'Plantillas',
     dailyGoal: 'Meta Diaria',
     streak: 'Racha de Días',
-    idlePrompt: 'Pareces ausente. ¿Continuar o pausar?',
-    continue: 'Continuar',
 
     // Settings Screen
     timerSettings: 'Ajustes del Temporizador',
@@ -281,8 +277,6 @@ export const translations = {
     templates: 'Vorlagen',
     dailyGoal: 'Tagesziel',
     streak: 'Tage-Serie',
-    idlePrompt: 'Du scheinst weg zu sein. Fortfahren oder pausieren?',
-    continue: 'Fortfahren',
 
     // Settings Screen
     timerSettings: 'Timer-Einstellungen',

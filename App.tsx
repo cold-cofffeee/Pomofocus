@@ -85,14 +85,12 @@ const App: React.FC = () => {
   const [showArchive, setShowArchive] = useState(false);
   const [showJournal, setShowJournal] = useState(false);
   const [isFocusMode, setIsFocusMode] = useState(false);
-  const [showIdlePrompt, setShowIdlePrompt] = useState(false);
   const [showPostSessionPrompt, setShowPostSessionPrompt] = useState(false);
   const [showSkipPrompt, setShowSkipPrompt] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showAIAssistant, setShowAIAssistant] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [lastDeletedTask, setLastDeletedTask] = useState<{ task: Task; index: number } | null>(null);
-  const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
 
   // Task List State
@@ -101,12 +99,10 @@ const App: React.FC = () => {
   
   // --- Refs ---
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const notificationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const alarmSoundRef = useRef<HTMLAudioElement | null>(null);
   const soundscapeRef = useRef<HTMLAudioElement | null>(null);
-  const headerMenuRef = useRef<HTMLDivElement>(null);
 
   // --- Localization ---
   const t = useMemo(() => translations[settings.language], [settings.language]);
@@ -380,36 +376,11 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleStartPause, resetTimer, switchMode, isFocusMode, mode]);
 
-  // Idle Detector
-  useEffect(() => {
-    const resetIdleTimer = () => {
-        if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-        if (isActive) {
-            idleTimerRef.current = setTimeout(() => { setShowIdlePrompt(true); setIsActive(false); }, 2 * 60 * 1000);
-        }
-    };
-    const events = ['mousemove', 'keydown', 'mousedown'];
-    events.forEach(event => window.addEventListener(event, resetIdleTimer));
-    resetIdleTimer();
-    return () => { if (idleTimerRef.current) clearTimeout(idleTimerRef.current); events.forEach(event => window.removeEventListener(event, resetIdleTimer)); };
-  }, [isActive]);
-
   // Fullscreen management for Focus Mode
   useEffect(() => {
       const handleFullscreenChange = () => { if (!document.fullscreenElement) setIsFocusMode(false); }
       document.addEventListener('fullscreenchange', handleFullscreenChange);
       return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
-  }, []);
-
-  // Close header dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-        if (headerMenuRef.current && !headerMenuRef.current.contains(event.target as Node)) {
-            setIsHeaderMenuOpen(false);
-        }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const toggleFocusMode = () => {
@@ -471,25 +442,10 @@ const App: React.FC = () => {
               </div>
             </div>
             <nav className="flex items-center gap-2">
-                <div className="hidden sm:flex items-center gap-2">
-                    <button onClick={toggleFocusMode} title={t.focusNow} className={headerBtnClass}> <FocusIcon /> </button>
-                    <button onClick={() => setShowJournal(true)} title={t.journal} className={headerBtnClass}> <JournalIcon /> </button>
-                </div>
-
-                <button onClick={() => setShowReports(true)} title={t.reports} className={headerBtnClass}> <ChartIcon /> </button>
-                <button onClick={() => setShowSettings(true)} title={t.settings} className={headerBtnClass}> <SettingsIcon /> </button>
-
-                <div ref={headerMenuRef} className="relative sm:hidden">
-                    <button onClick={() => setIsHeaderMenuOpen(prev => !prev)} title="More options" className={headerBtnClass}>
-                        <MoreVerticalIcon />
-                    </button>
-                    {isHeaderMenuOpen && (
-                        <div className="absolute right-0 mt-2 w-48 bg-white text-slate-800 rounded-md shadow-lg z-20 py-1 animate-scale-up origin-top-right">
-                            <a href="#" onClick={(e) => { e.preventDefault(); toggleFocusMode(); setIsHeaderMenuOpen(false); }} className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-slate-100">{<FocusIcon/>} {t.focusNow}</a>
-                            <a href="#" onClick={(e) => { e.preventDefault(); setShowJournal(true); setIsHeaderMenuOpen(false); }} className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-slate-100">{<JournalIcon/>} {t.journal}</a>
-                        </div>
-                    )}
-                </div>
+              <button onClick={toggleFocusMode} title={t.focusNow} className={headerBtnClass}> <FocusIcon /> </button>
+              <button onClick={() => setShowJournal(true)} title={t.journal} className={headerBtnClass}> <JournalIcon /> </button>
+              <button onClick={() => setShowReports(true)} title={t.reports} className={headerBtnClass}> <ChartIcon /> </button>
+              <button onClick={() => setShowSettings(true)} title={t.settings} className={headerBtnClass}> <SettingsIcon /> </button>
             </nav>
           </header>
 
@@ -538,7 +494,6 @@ const App: React.FC = () => {
       {showJournal && <JournalModal entries={journalEntries} setEntries={setJournalEntries} onClose={() => setShowJournal(false)} />}
       {showDailyReview && <DailyReviewModal onClose={() => setShowDailyReview(false)} onSave={(review) => setDailyReviews(prev => [...prev, review])} t={t} />}
       {showArchive && <ArchiveModal archivedTasks={archivedTasks} onRestore={handleRestoreTask} onDelete={handleDeletePermanently} onClose={() => setShowArchive(false)} t={t} currentPriorities={currentPriorities} />}
-      {showIdlePrompt && <IdlePromptModal onContinue={() => { setIsActive(true); setShowIdlePrompt(false); }} onPause={() => setShowIdlePrompt(false)} t={t} />}
       {showPostSessionPrompt && currentSession && <PostSessionModal sessionId={currentSession.id} onClose={() => { setShowPostSessionPrompt(false); continueAfterPrompt(); }} onSave={(data) => { setSessionLogs(p => p.map(l => l.id === currentSession.id ? {...l, ...data} : l)); setShowPostSessionPrompt(false); continueAfterPrompt(); }} t={t} />}
       {showSkipPrompt && <SkipReasonModal onClose={() => setShowSkipPrompt(false)} onSkip={handleSkipSession} t={t} />}
       {/* Fix: Cast 'Today' to ScheduleDate to resolve type error */}
@@ -1244,7 +1199,6 @@ const ArchiveModal: React.FC<{ archivedTasks: Task[], onRestore: (id: string) =>
     );
 };
 
-const IdlePromptModal: React.FC<{ onContinue: () => void, onPause: () => void, t: any }> = ({ onContinue, onPause, t }) => <Modal onClose={onPause} title="Are you still there?"><p>{t.idlePrompt}</p><div className="flex justify-end gap-4 mt-4"><button onClick={onPause} className="px-4 py-2 rounded">{t.pause}</button><button onClick={onContinue} className="px-4 py-2 bg-blue-500 text-white rounded">{t.continue}</button></div></Modal>;
 const SkipReasonModal: React.FC<{ onClose: () => void, onSkip: (reason: string) => void, t: any }> = ({ onClose, onSkip }) => <Modal onClose={onClose} title="Skip Session?"><div className="grid grid-cols-2 gap-2">{SKIP_REASONS.map(r => <button key={r} onClick={() => onSkip(r)} className="p-3 bg-slate-100 hover:bg-slate-200 rounded">{r}</button>)}</div></Modal>;
 type AIGeneratedTask = Omit<Task, 'id' | 'completedPomos' | 'isCompleted' | 'createdAt' | 'isPinned' | 'scheduleDate' | 'dependsOn'>;
 const AIAssistantModal: React.FC<{ onClose: () => void, onAddTasks: (tasks: AIGeneratedTask[]) => void, t: any }> = ({ onClose, onAddTasks, t }) => {

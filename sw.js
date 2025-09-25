@@ -8,10 +8,7 @@ const urlsToCache = [
   '/types.ts',
   '/constants.ts',
   '/hooks/useLocalStorage.ts',
-  'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap',
-  // You should add the actual icon paths here once you create them
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png'
+  'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'
 ];
 
 self.addEventListener('install', event => {

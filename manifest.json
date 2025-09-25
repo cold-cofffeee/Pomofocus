@@ -4,14 +4,16 @@
   "description": "A high-fidelity clone of the Pomofocus web application, a minimalist Pomodoro timer with task management, reports, and settings.",
   "icons": [
     {
-      "src": "/icons/icon-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNlZjQ0NDQiLz48dGV4dCB4PSI1MCIgeT0iNTUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iNjAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmaWxsPSJ3aGl0ZSI+UDwvdGV4dD48L3N2Zz4=",
+      "type": "image/svg+xml",
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNlZjQ0NDQiLz48dGV4dCB4PSI1MCIgeT0iNTUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iNjAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmaWxsPSJ3aGl0ZSI+UDwvdGV4dD48L3N2Zz4=",
+      "type": "image/svg+xml",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": "/",
