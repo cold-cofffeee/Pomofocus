@@ -1,0 +1,22 @@
+{
+  "short_name": "Pomofocus",
+  "name": "Pomofocus Clone",
+  "description": "A high-fidelity clone of the Pomofocus web application, a minimalist Pomodoro timer with task management, reports, and settings.",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#ef4444"
+}
