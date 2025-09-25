@@ -452,7 +452,7 @@ const App: React.FC = () => {
 
   // --- UI Rendering ---
   const accessibilityClasses = `theme-${settings.themePalette.toLowerCase()} font-size-${settings.fontSize} ${settings.reducedMotion ? 'reduce-motion' : ''}`;
-  const headerBtnClass = "flex items-center gap-1.5 px-3 py-2 text-sm font-medium bg-white/20 hover:bg-white/30 rounded-md transition-colors";
+  const headerBtnClass = "flex items-center justify-center p-2 text-sm font-medium bg-white/20 hover:bg-white/30 rounded-md transition-colors";
 
   if (isFocusMode) {
     return <FocusModeView onExit={toggleFocusMode} {...{ secondsLeft, activeTask, mode, theme, t, handleStartPause, isActive }} />;
@@ -472,12 +472,12 @@ const App: React.FC = () => {
             </div>
             <nav className="flex items-center gap-2">
                 <div className="hidden sm:flex items-center gap-2">
-                    <button onClick={toggleFocusMode} title={t.focusNow} className={headerBtnClass}> <FocusIcon /> <span className="hidden lg:inline">{t.focusNow}</span></button>
-                    <button onClick={() => setShowJournal(true)} title={t.journal} className={headerBtnClass}> <JournalIcon /> <span className="hidden lg:inline">{t.journal}</span></button>
+                    <button onClick={toggleFocusMode} title={t.focusNow} className={headerBtnClass}> <FocusIcon /> </button>
+                    <button onClick={() => setShowJournal(true)} title={t.journal} className={headerBtnClass}> <JournalIcon /> </button>
                 </div>
 
-                <button onClick={() => setShowReports(true)} title={t.reports} className={headerBtnClass}> <ChartIcon /> <span className="hidden lg:inline">{t.reports}</span></button>
-                <button onClick={() => setShowSettings(true)} title={t.settings} className={headerBtnClass}> <SettingsIcon /> <span className="hidden lg:inline">{t.settings}</span></button>
+                <button onClick={() => setShowReports(true)} title={t.reports} className={headerBtnClass}> <ChartIcon /> </button>
+                <button onClick={() => setShowSettings(true)} title={t.settings} className={headerBtnClass}> <SettingsIcon /> </button>
 
                 <div ref={headerMenuRef} className="relative sm:hidden">
                     <button onClick={() => setIsHeaderMenuOpen(prev => !prev)} title="More options" className={headerBtnClass}>
