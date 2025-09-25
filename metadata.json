@@ -1,0 +1,5 @@
+{
+  "name": "Pomofocus Clone",
+  "description": "A high-fidelity clone of the Pomofocus web application, a minimalist Pomodoro timer with task management, reports, and settings. This app runs entirely in the browser using local storage for persistence.",
+  "requestFramePermissions": []
+}
